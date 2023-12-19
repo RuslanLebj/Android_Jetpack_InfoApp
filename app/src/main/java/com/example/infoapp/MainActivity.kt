@@ -16,6 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.infoapp.ui.theme.InfoAppTheme
 import com.example.infoapp.ui_components.DrawerMenu
 import com.example.infoapp.ui_components.MainTopBar
+import com.example.infoapp.utils.DrawerEvents
 
 
 class MainActivity : ComponentActivity() {
@@ -36,7 +37,14 @@ class MainActivity : ComponentActivity() {
                     )
                 },
                 drawerContent = {
-                    DrawerMenu()
+                    DrawerMenu(){ event ->
+                        when(event){
+                            is DrawerEvents.OnItemClick -> {
+                                topBarTitle.value = event.title
+                            }
+                        }
+
+                    }
                 }
             ) {
             }

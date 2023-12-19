@@ -33,9 +33,10 @@ import com.example.infoapp.ui.theme.BgTransparent
 import com.example.infoapp.R
 import com.example.infoapp.ui.theme.Purple40
 import com.example.infoapp.ui.theme.Purple40Transparent
+import com.example.infoapp.utils.DrawerEvents
 
 @Composable
-fun DrawerMenu() {
+fun DrawerMenu(onEvent: (DrawerEvents) -> Unit) {
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
             painter = painterResource(
@@ -47,7 +48,9 @@ fun DrawerMenu() {
         )
         Column(modifier = Modifier.fillMaxSize()) {
             Header()
-            Body()
+            Body(){ event ->
+                onEvent(event)
+            }
         }
     }
 }
@@ -87,7 +90,7 @@ fun Header() {
 }
 
 @Composable
-fun Body() {
+fun Body(onEvent: (DrawerEvents) -> Unit) {
     val list = stringArrayResource(id = R.array.drawer_list)
     LazyColumn(modifier = Modifier.fillMaxSize()) {
         itemsIndexed(list) { index, title ->
@@ -102,6 +105,7 @@ fun Body() {
                     modifier = Modifier
                         .fillMaxWidth()
                         .clickable {
+                            onEvent(DrawerEvents.OnItemClick(title, index))
 
                         }
                         .padding(10.dp)
