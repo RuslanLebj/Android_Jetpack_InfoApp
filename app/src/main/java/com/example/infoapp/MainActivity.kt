@@ -11,12 +11,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.infoapp.ui.theme.InfoAppTheme
 import com.example.infoapp.ui_components.DrawerMenu
 import com.example.infoapp.ui_components.MainTopBar
 import com.example.infoapp.utils.DrawerEvents
+import kotlinx.coroutines.launch
 
 
 class MainActivity : ComponentActivity() {
@@ -25,6 +27,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val scaffoldState = rememberScaffoldState()
+            val coroutineScope = rememberCoroutineScope()
             val topBarTitle = remember {
                 mutableStateOf("")
             }
@@ -43,7 +46,9 @@ class MainActivity : ComponentActivity() {
                                 topBarTitle.value = event.title
                             }
                         }
-
+                        coroutineScope.launch {
+                            scaffoldState.drawerState.close()
+                        }
                     }
                 }
             ) {
