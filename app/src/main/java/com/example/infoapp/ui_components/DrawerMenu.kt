@@ -32,6 +32,7 @@ import com.example.infoapp.ui.theme.PurpleGrey80
 import com.example.infoapp.ui.theme.BgTransparent
 import com.example.infoapp.R
 import com.example.infoapp.ui.theme.Purple40
+import com.example.infoapp.ui.theme.Purple40Transparent
 
 @Composable
 fun DrawerMenu() {
@@ -76,7 +77,7 @@ fun Header() {
                 text = "Ассортимент",
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(Purple40)
+                    .background(Purple40Transparent)
                     .padding(10.dp),
                 textAlign = TextAlign.Center,
                 color = Color.White
