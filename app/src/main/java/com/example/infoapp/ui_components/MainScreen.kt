@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun MainScreen(context: Context) {
+fun MainScreen(context: Context, onClick: (ListItem) -> Unit) {
     val scaffoldState = rememberScaffoldState()
     val mainList = remember {
         mutableStateOf(getListItemsByIndex(0, context))
@@ -43,7 +43,8 @@ fun MainScreen(context: Context) {
                     is DrawerEvents.OnItemClick -> {
                         topBarTitle.value = event.title
                         mainList.value = getListItemsByIndex(
-                            event.index, context)
+                            event.index, context
+                        )
                     }
                 }
                 coroutineScope.launch {
@@ -54,13 +55,15 @@ fun MainScreen(context: Context) {
     ) {
         LazyColumn(modifier = Modifier.fillMaxSize()) {
             items(mainList.value) { item ->
-                MainListItem(item = item)
+                MainListItem(item = item) { listItem ->
+                    onClick(listItem)
+                }
             }
         }
     }
 }
 
-private fun getListItemsByIndex(index: Int, context: Context): List<ListItem>{
+private fun getListItemsByIndex(index: Int, context: Context): List<ListItem> {
     val list = ArrayList<ListItem>()
     val arrayList = context.resources.getStringArray(IdArrayList.listId[index])
     arrayList.forEach { item ->
@@ -68,7 +71,8 @@ private fun getListItemsByIndex(index: Int, context: Context): List<ListItem>{
         list.add(
             ListItem(
                 itemArray[0],
-                itemArray[1]
+                itemArray[1],
+                itemArray[2]
             )
         )
     }
