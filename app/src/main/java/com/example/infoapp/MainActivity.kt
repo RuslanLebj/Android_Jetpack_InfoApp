@@ -20,70 +20,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.infoapp.ui.theme.InfoAppTheme
 import com.example.infoapp.ui_components.DrawerMenu
+import com.example.infoapp.ui_components.MainScreen
 import com.example.infoapp.ui_components.MainTopBar
 import com.example.infoapp.utils.DrawerEvents
 import com.example.infoapp.utils.IdArrayList
 import com.example.infoapp.utils.ListItem
+import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 
 
 class MainActivity : ComponentActivity() {
-    @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val scaffoldState = rememberScaffoldState()
-            val mainList = remember {
-                mutableStateOf(getListItemsByIndex(0, this))
+            InfoAppTheme {
+                MainScreen(context = this)
             }
-            val coroutineScope = rememberCoroutineScope()
-            val topBarTitle = remember {
-                mutableStateOf("Одежда")
-            }
-            Scaffold(
-                scaffoldState = scaffoldState,
-                topBar = {
-                    MainTopBar(
-                        title = topBarTitle.value,
-                        scaffoldState
-                    )
-                },
-                drawerContent = {
-                    DrawerMenu() { event ->
-                        when (event) {
-                            is DrawerEvents.OnItemClick -> {
-                                topBarTitle.value = event.title
-                                mainList.value = getListItemsByIndex(
-                                    event.index, this@MainActivity)
-                            }
-                        }
-                        coroutineScope.launch {
-                            scaffoldState.drawerState.close()
-                        }
-                    }
-                }
-            ) {
-                LazyColumn(modifier = Modifier.fillMaxSize()) {
-                    items(mainList.value) { item ->
-                        MainListItem(item = item)
-                    }
-                }
-            }
+
         }
     }
-}
-
-private fun getListItemsByIndex(index: Int, context: Context): List<ListItem>{
-    val list = ArrayList<ListItem>()
-    val arrayList = context.resources.getStringArray(IdArrayList.listId[index])
-    arrayList.forEach { item ->
-        val itemArray = item.split("|")
-        list.add(
-            ListItem(
-                itemArray[0],
-                itemArray[1]
-            )
-        )
-    }
-    return list
 }
