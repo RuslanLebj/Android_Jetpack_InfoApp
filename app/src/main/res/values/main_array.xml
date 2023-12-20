@@ -8,4 +8,15 @@
         <item>Хозтовары</item>
         <item>Мебель</item>
     </string-array>
+
+
+    <string-array name="clothes">
+        <item>Худи|hoody.png</item>
+        <item>Джинсы|jeans.png</item>
+    </string-array>
+
+    <string-array name="food">
+        <item>Хлеб|bread.png</item>
+        <item>Мясо|meat.png</item>
+    </string-array>
 </resources>
