@@ -7,6 +7,7 @@ import androidx.compose.material.ScaffoldState
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -32,6 +33,17 @@ fun MainTopBar(title: String, scaffoldState: ScaffoldState) {
             ) {
                 Icon(imageVector = Icons.Default.Menu,
                     contentDescription = "Menu"
+                )
+            }
+        },
+        actions = {
+            IconButton(
+                onClick = {
+
+                }
+            ) {
+                Icon(imageVector = Icons.Default.Favorite,
+                    contentDescription = "Favorite"
                 )
             }
         }

@@ -3,9 +3,9 @@
     <string-array name="drawer_list">
         <item>Одежда</item>
         <item>Продукты</item>
-        <item>Средства гигиены</item>
+        <item>Медицина</item>
         <item>Косметика</item>
-        <item>Для дома</item>
-        <item>Украшения</item>
+        <item>Хозтовары</item>
+        <item>Мебель</item>
     </string-array>
 </resources>
